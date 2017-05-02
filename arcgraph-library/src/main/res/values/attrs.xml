@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ArcGraphView">
+        <attr name="graph_stroke_width" format="dimension"/>
+        <attr name="graph_radius" format="dimension"/>
+        <attr name="graph_gap_angle" format="float"/>
+        <attr name="point_radius" format="dimension"/>
+        <attr name="point_score" format="integer"/>
+        <attr name="point_stroke_width" format="dimension"/>
+        <attr name="section1_color" format="color"/>
+        <attr name="section2_color" format="color"/>
+        <attr name="section3_color" format="color"/>
+        <attr name="section4_color" format="color"/>
+        <attr name="section1_score" format="integer"/>
+        <attr name="section2_score" format="integer"/>
+        <attr name="section3_score" format="integer"/>
+        <attr name="section4_score" format="integer"/>
+        <attr name="section1_weight" format="integer"/>
+        <attr name="section2_weight" format="integer"/>
+        <attr name="section3_weight" format="integer"/>
+        <attr name="section4_weight" format="integer"/>
+    </declare-styleable>
+</resources>
