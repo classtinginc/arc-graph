@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">arcgraph-sample</string>
+    <string name="default.text">text</string>
+    <string name="label.arc_graph.score">my score</string>
+    <string name="label.arc_graph.title">Arc graph</string>
+    <string name="label.arc_graph.controller.score">score</string>
+    <string name="label.arc_graph.controller.gap">gap</string>
+    <string name="label.arc_graph.controller.weight">weight</string>
+    <string name="label.arc_graph.controller.weight1">section1</string>
+    <string name="label.arc_graph.controller.weight2">section2</string>
+    <string name="label.arc_graph.controller.weight3">section3</string>
+    <string name="label.arc_graph.controller.weight4">section4</string>
+</resources>
