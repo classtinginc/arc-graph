@@ -23,12 +23,12 @@
             android:orientation="vertical">
 
             <include
-                layout="@layout/item_weight"
+                layout="@layout/view_weight_controller"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <include
-                layout="@layout/item_seekbar"
+                layout="@layout/view_seekbar_controller"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"/>

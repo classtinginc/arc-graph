@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="number"
             android:hint="@string/label.arc_graph.controller.weight1"/>
 
         <android.support.v7.widget.AppCompatEditText
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="number"
             android:hint="@string/label.arc_graph.controller.weight2"/>
 
         <android.support.v7.widget.AppCompatEditText
@@ -38,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="number"
             android:hint="@string/label.arc_graph.controller.weight3"/>
 
         <android.support.v7.widget.AppCompatEditText
@@ -46,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
+            android:inputType="number"
             android:hint="@string/label.arc_graph.controller.weight4"/>
 
     </LinearLayout>
