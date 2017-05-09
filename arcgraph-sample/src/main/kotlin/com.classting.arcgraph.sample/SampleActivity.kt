@@ -16,8 +16,6 @@ import com.jrummyapps.android.colorpicker.ColorPickerDialog
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.onClick
-import android.widget.LinearLayout
-
 
 class SampleActivity : AppCompatActivity(), ColorPickerDialogListener {
 
@@ -94,8 +92,6 @@ class SampleActivity : AppCompatActivity(), ColorPickerDialogListener {
             graph.setScore(currentScore.text.toString().toInt())
             scoreSeekBar.progress = currentScore.text.toString().toInt()
             scorePoint.text = currentScore.text
-
-            playPointerAnimation()
         }
     }
 
