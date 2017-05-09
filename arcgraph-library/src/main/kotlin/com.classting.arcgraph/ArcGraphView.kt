@@ -57,6 +57,10 @@ class ArcGraphView : RelativeLayout {
         pointerView?.x = (position?.x ?: 0f) - (pointerView?.measuredWidth ?: 0) / 2
         pointerView?.y = (position?.y ?: 0f) - (pointerView?.measuredHeight ?: 0) / 2
 
+        initPointerColor()
+    }
+
+    private fun initPointerColor() {
         pointerView?.color = graphView?.getSectionColor(score) ?: DEFAULT_COLOR
     }
 
@@ -68,9 +72,17 @@ class ArcGraphView : RelativeLayout {
         setPointer(score)
     }
 
-    fun setSectionColor(colors: Array<Int>) {
-        graphView?.setColors(colors)
+    fun setSectionColors(colors: Array<Int?>) {
+        setSectionColors(colors.getOrNull(0), colors.getOrNull(1), colors.getOrNull(2), colors.getOrNull(3))
     }
+
+    fun setSectionColors(color1: Int? = null, color2: Int? = null, color3: Int? = null, color4: Int? = null) {
+        graphView?.setColors(color1, color2, color3, color4)
+
+        initPointerColor()
+    }
+
+    fun getSectionColors() = graphView?.getColors().orEmpty()
 
     fun setGraphGapAngle(gap: Float) {
         graphView?.setGap(gap)
@@ -78,7 +90,7 @@ class ArcGraphView : RelativeLayout {
 
     fun getGraphGapAngle() = graphView?.gapAngle
 
-    fun getSectionWeights() = graphView?.getWeights()
+    fun getSectionWeights() = graphView?.getWeights().orEmpty()
 
     fun setSectionWeights(section1Weight: Int? = null, section2Weight: Int? = null, section3Weight: Int? = null, section4Weight: Int? = null) {
         graphView?.setWeights(section1Weight, section2Weight, section3Weight, section4Weight)

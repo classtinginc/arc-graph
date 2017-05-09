@@ -3,9 +3,7 @@ package com.classting.arcgraph
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
-import org.jetbrains.anko.collections.forEachWithIndex
 
 /**
  * Created by BN on 2017. 4. 27..
@@ -203,15 +201,14 @@ class GraphView: View {
         }
     }
 
-    fun setColors(colors: Array<Int>) {
-        if (colors.size >= sections.size) {
-            sections.forEachWithIndex { i, graph ->
-                graph.color = colors[i]
-            }
-        } else {
-            Log.e("ArcGraphView", "colors are wrong!!")
-        }
+    fun setColors(section1Color: Int? = null, section2Color: Int? = null, section3Color: Int? = null, section4Color: Int? = null) {
+        section1Color?.let { color -> sections.getOrNull(0)?.let { it.color = color } }
+        section2Color?.let { color -> sections.getOrNull(1)?.let { it.color = color } }
+        section3Color?.let { color -> sections.getOrNull(2)?.let { it.color = color } }
+        section4Color?.let { color -> sections.getOrNull(3)?.let { it.color = color } }
     }
+
+    fun getColors() = sections.map { it.color }
 
     fun setGap(angle: Float) {
         gapAngle = angle
