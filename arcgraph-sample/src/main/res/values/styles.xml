@@ -13,4 +13,12 @@
         <item name="android:lines">2</item>
     </style>
 
+    <style name="colorView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@color/black_54</item>
+    </style>
+
 </resources>

@@ -2,13 +2,24 @@ package com.classting.arcgraph.sample
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.view.View
 import android.widget.EditText
 import android.widget.SeekBar
 import android.widget.TextView
 import butterknife.bindView
 import com.classting.arcgraph.ArcGraphView
+import com.jrummyapps.android.colorpicker.ColorPickerDialog
+import com.jrummyapps.android.colorpicker.ColorPickerDialogListener
+import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.onClick
 
-class SampleActivity : AppCompatActivity() {
+class SampleActivity : AppCompatActivity(), ColorPickerDialogListener {
+
+    private val COLOR_DIALOG_ID_SECTION1 = 0
+    private val COLOR_DIALOG_ID_SECTION2 = 1
+    private val COLOR_DIALOG_ID_SECTION3 = 2
+    private val COLOR_DIALOG_ID_SECTION4 = 3
 
     private val graph by bindView<ArcGraphView>(R.id.graph)
     private val scorePoint by bindView<TextView>(R.id.score_point)
@@ -20,6 +31,10 @@ class SampleActivity : AppCompatActivity() {
     private val section2Weight by bindView<EditText>(R.id.section2_weight)
     private val section3Weight by bindView<EditText>(R.id.section3_weight)
     private val section4Weight by bindView<EditText>(R.id.section4_weight)
+    private val section1Color by bindView<View>(R.id.section1_color)
+    private val section2Color by bindView<View>(R.id.section2_color)
+    private val section3Color by bindView<View>(R.id.section3_color)
+    private val section4Color by bindView<View>(R.id.section4_color)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +47,7 @@ class SampleActivity : AppCompatActivity() {
         initScoreController()
         initGraphGapController()
         initGraphWeightController()
+        initColorController()
     }
 
     private fun initGraphWeightController() {
@@ -86,5 +102,60 @@ class SampleActivity : AppCompatActivity() {
         }
 
         gapSeekBar.progress = (graph.getGraphGapAngle() ?: 0f).toInt()
+    }
+
+    private fun initColorController() {
+        val graphColors = graph.getSectionColors()
+        val defaultColor = ContextCompat.getColor(this, R.color.black_54)
+        section1Color.backgroundColor = graphColors.getOrElse(0, { defaultColor })
+        section2Color.backgroundColor = graphColors.getOrElse(1, { defaultColor })
+        section3Color.backgroundColor = graphColors.getOrElse(2, { defaultColor })
+        section4Color.backgroundColor = graphColors.getOrElse(3, { defaultColor })
+
+        section1Color.onClick {
+            showColorPickerDialog(COLOR_DIALOG_ID_SECTION1, graphColors.getOrElse(0, { defaultColor }))
+        }
+        section2Color.onClick {
+            showColorPickerDialog(COLOR_DIALOG_ID_SECTION2, graphColors.getOrElse(1, { defaultColor }))
+        }
+        section3Color.onClick {
+            showColorPickerDialog(COLOR_DIALOG_ID_SECTION3, graphColors.getOrElse(2, { defaultColor }))
+        }
+        section4Color.onClick {
+            showColorPickerDialog(COLOR_DIALOG_ID_SECTION4, graphColors.getOrElse(3, { defaultColor }))
+        }
+    }
+
+    private fun showColorPickerDialog(dialogId: Int, currentColor: Int) {
+        ColorPickerDialog.newBuilder()
+            .setDialogType(ColorPickerDialog.TYPE_CUSTOM)
+            .setAllowPresets(false)
+            .setDialogId(dialogId)
+            .setColor(currentColor)
+            .setShowAlphaSlider(true)
+            .show(this)
+    }
+
+    override fun onDialogDismissed(dialogId: Int) {}
+
+    override fun onColorSelected(dialogId: Int, color: Int) {
+        when (dialogId) {
+            COLOR_DIALOG_ID_SECTION1 -> {
+                graph.setSectionColors(color1 = color)
+                section1Color.backgroundColor = color
+            }
+            COLOR_DIALOG_ID_SECTION2 -> {
+                graph.setSectionColors(color2 = color)
+                section2Color.backgroundColor = color
+            }
+            COLOR_DIALOG_ID_SECTION3 -> {
+                graph.setSectionColors(color3 = color)
+                section3Color.backgroundColor = color
+            }
+            COLOR_DIALOG_ID_SECTION4 -> {
+                graph.setSectionColors(color4 = color)
+                section4Color.backgroundColor = color
+            }
+        }
     }
 }

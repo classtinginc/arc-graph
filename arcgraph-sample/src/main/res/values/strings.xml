@@ -10,4 +10,5 @@
     <string name="label.arc_graph.controller.weight2">section2</string>
     <string name="label.arc_graph.controller.weight3">section3</string>
     <string name="label.arc_graph.controller.weight4">section4</string>
+    <string name="label.arc_graph.controller.color">color</string>
 </resources>
