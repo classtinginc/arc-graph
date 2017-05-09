@@ -48,5 +48,9 @@ dependencies {
 
     compile 'com.jrummyapps:colorpicker:2.1.6'
 
+    compile 'com.daimajia.easing:library:2.0@aar'
+    compile 'com.daimajia.androidanimations:library:2.2@aar'
+    compile 'com.nineoldandroids:library:2.4.0'
+
     testCompile 'junit:junit:4.12'
 }

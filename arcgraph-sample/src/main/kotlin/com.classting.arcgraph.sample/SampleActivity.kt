@@ -1,5 +1,6 @@
 package com.classting.arcgraph.sample
 
+import android.graphics.PointF
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -9,10 +10,14 @@ import android.widget.SeekBar
 import android.widget.TextView
 import butterknife.bindView
 import com.classting.arcgraph.ArcGraphView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.jrummyapps.android.colorpicker.ColorPickerDialog
 import com.jrummyapps.android.colorpicker.ColorPickerDialogListener
 import org.jetbrains.anko.backgroundColor
 import org.jetbrains.anko.onClick
+import android.widget.LinearLayout
+
 
 class SampleActivity : AppCompatActivity(), ColorPickerDialogListener {
 
@@ -20,6 +25,7 @@ class SampleActivity : AppCompatActivity(), ColorPickerDialogListener {
     private val COLOR_DIALOG_ID_SECTION2 = 1
     private val COLOR_DIALOG_ID_SECTION3 = 2
     private val COLOR_DIALOG_ID_SECTION4 = 3
+    private val ANIMATION_DURATION = 1000L
 
     private val graph by bindView<ArcGraphView>(R.id.graph)
     private val scorePoint by bindView<TextView>(R.id.score_point)
@@ -68,33 +74,37 @@ class SampleActivity : AppCompatActivity(), ColorPickerDialogListener {
         }
 
         val sectionWeights = graph.getSectionWeights()
-        section1Weight.hint = (sectionWeights?.getOrNull(0)?.toString() ?: "").toString()
-        section2Weight.hint = (sectionWeights?.getOrNull(1)?.toString() ?: "").toString()
-        section3Weight.hint = (sectionWeights?.getOrNull(2)?.toString() ?: "").toString()
-        section4Weight.hint = (sectionWeights?.getOrNull(3)?.toString() ?: "").toString()
+        section1Weight.hint = (sectionWeights.getOrNull(0)?.toString() ?: "").toString()
+        section2Weight.hint = (sectionWeights.getOrNull(1)?.toString() ?: "").toString()
+        section3Weight.hint = (sectionWeights.getOrNull(2)?.toString() ?: "").toString()
+        section4Weight.hint = (sectionWeights.getOrNull(3)?.toString() ?: "").toString()
     }
 
     private fun initScoreController() {
         scoreSeekBar.max = 100
-        scoreSeekBar.setOnProgressChanaged { progress ->
+        scoreSeekBar.setOnProgressChanged ({ progress ->
             graph.setScore(progress)
             currentScore.setText(progress.toString())
             scorePoint.text = progress.toString()
-        }
+        }, {
+            playPointerAnimation()
+        })
 
         currentScore.setOnTextChanged {
             graph.setScore(currentScore.text.toString().toInt())
             scoreSeekBar.progress = currentScore.text.toString().toInt()
             scorePoint.text = currentScore.text
+
+            playPointerAnimation()
         }
     }
 
     private fun initGraphGapController() {
         gapSeekBar.max = 60
-        gapSeekBar.setOnProgressChanaged { progress ->
+        gapSeekBar.setOnProgressChanged ({ progress ->
             graph.setGraphGapAngle(progress.toFloat())
             currentGap.setText(progress.toString())
-        }
+        })
 
         currentGap.setOnTextChanged {
             graph.setGraphGapAngle(currentGap.text.toString().toFloat())
@@ -124,6 +134,13 @@ class SampleActivity : AppCompatActivity(), ColorPickerDialogListener {
         section4Color.onClick {
             showColorPickerDialog(COLOR_DIALOG_ID_SECTION4, graphColors.getOrElse(3, { defaultColor }))
         }
+    }
+
+    private fun playPointerAnimation() {
+        val point = PointF(graph.getPointerView()?.x ?: 0f, graph.getPointerView()?.y ?: 0f)
+        YoYo.with(Techniques.Landing).duration(ANIMATION_DURATION).playOn(graph.getPointerView())
+        graph.getPointerView()?.x = point.x
+        graph.getPointerView()?.y = point.y
     }
 
     private fun showColorPickerDialog(dialogId: Int, currentColor: Int) {

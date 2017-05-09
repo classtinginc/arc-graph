@@ -22,12 +22,15 @@ fun EditText.setOnTextChanged(l: () -> Unit) {
     })
 }
 
-fun SeekBar.setOnProgressChanaged(l: (progress: Int) -> Unit) {
+fun SeekBar.setOnProgressChanged(changedCallback: (progress: Int) -> Unit, stoppedCallback: (() -> Unit)? = null) {
     setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
         override fun onStartTrackingTouch(seekBar: SeekBar?) {}
-        override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            stoppedCallback?.invoke()
+        }
+
         override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            l(progress)
+            changedCallback(progress)
         }
     })
 }
